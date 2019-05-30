@@ -1093,11 +1093,13 @@ func (r *Consumer) handlerLoop(handler Handler) {
 	r.log(LogLevelDebug, "starting Handler")
 
 	for {
+
 		message, ok := <-r.incomingMessages
 		if !ok {
 			goto exit
 		}
 
+		r.log(LogLevelDebug, "MESAGE %s BODY %s", message.ID, message.Body)
 		if r.shouldFailMessage(message, handler) {
 			message.Finish()
 			continue
