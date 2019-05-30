@@ -1099,12 +1099,12 @@ func (r *Consumer) handlerLoop(handler Handler) {
 			goto exit
 		}
 
-		r.log(LogLevelDebug, "MESAGE %s BODY %s", message.ID, message.Body)
 		if r.shouldFailMessage(message, handler) {
 			message.Finish()
 			continue
 		}
 
+		r.log(LogLevelDebug, "MESSAGE %s BODY %s", message.ID, message.Body)
 		err := handler.HandleMessage(message)
 		if err != nil {
 			r.log(LogLevelError, "Handler returned error (%s) for msg %s", err, message.ID)
